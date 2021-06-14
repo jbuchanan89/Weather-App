@@ -38,6 +38,11 @@ ul {
   text-align: center;
 }
 
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .emoji,
 #weather-desc {
   display: block;
