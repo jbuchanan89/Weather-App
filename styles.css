@@ -1,56 +1,42 @@
 body {
-  padding: 0 15px 50px 15px;
-  font-family: "Montserrat", sans-serif;
-}
-
-h1,
-h3,
-ul,
-div,
-.card-text {
   font-family: "Montserrat", sans-serif;
 }
 
 h1 {
   color: #fff;
-  text-align: center;
-  padding: 25px;
 }
 
-.header h3 {
+#current-temp {
+  font-size: 35px;
   color: #003399;
-  text-align: center;
-  padding: 35px;
-  font-size: 40px;
 }
-
 form {
   display: inline;
 }
 
 button:hover {
-  background-color: #003399;
+  background-color: #6699ff;
   color: #fff;
   font-weight: bold;
 }
+
 ul {
   list-style: none;
-  text-align: center;
 }
 
-.main {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.emoji,
-#weather-desc {
-  display: block;
-  font-size: 30px;
-  position: relative;
-  padding: 20px;
+.header h3 {
   color: #003399;
-  float: right;
+  padding: 20px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#weather-icon,
+#weather-desc,
+#wind-speed,
+#percipitation {
+  font-size: 18px;
+  color: #003399;
 }
 
 .header-row {
@@ -70,13 +56,22 @@ ul {
 }
 
 #current-time {
-  text-align: center;
   color: #fff;
   font-size: 25px;
 }
 
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  border: none;
+}
+
 .card-body {
   background-color: #fff;
+  padding: 15px;
 }
 
 .card-body i {
@@ -96,9 +91,7 @@ ul {
 .card-text {
   text-align: center;
   font-size: 25px;
-  border: 1px solid lightgray;
   padding: 10px;
   margin: 0 0 15px 0;
-  border-radius: 20px;
   color: #003399;
 }

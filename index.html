@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather</title>
-    <link rel="stylesheet" href="styles.css" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,12 +13,27 @@
       crossorigin="anonymous"
     />
     <script src="https://kit.fontawesome.com/22aaf58cbd.js" crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:ital@1&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>  
-</head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:ital@1&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>  
+    <link rel="stylesheet" href="styles.css" />
+  </head>
   <body>
     <div class="row header-row">
+      <div class="col-5 header">
+        <h1>Falls Church, VA</h1>
+        <p id="current-time">
+        </p>
+        <p id="current-temp">80 F°| <a href="">C°</a> </p>
+        <ul>
+          <li id="weather-icon"></li>
+          <li id="weather-desc"><strong>Sunny</strong></li>
+          <li id="wind-speed">Wind:</li>
+          <li id="percipitation">Percipitation:</li>
+        </ul>
+      </div>
+
+      <div class="col-2"></div>
       <div class="col-5 header">
         <h3>Enter City</h3>
         <form>
@@ -32,19 +47,7 @@
 
         </form>
         <button type="submit" id="current-location-button" label="Current Location">Current</button>
-
-      </div>
-      <div class="col-2"></div>
-      <div class="col-5 header">
-        <h1>Falls Church, VA</h1>
-        <p id="current-time">
-        </p>
-        <h3 id="current-temp">80 &#8457;</h3>
-        <ul>
-          <li class="emoji"></li>
-          <li id="weather-desc"><strong>Sunny</strong></li>
-        </ul>
-      </div>
+      </div>     
     </div>
 
     <div class="main">
