@@ -39,7 +39,7 @@ function displayWeather(response) {
   let weatherDescription = document.querySelector("#weather-desc");
   let weatherIcon = document.querySelector("#weather-icon");
   let weatherIconId = response.data.weather[0].icon;
-  currentTemp.innerHTML = `${cityTemp} &#8457; `;
+  currentTemp.innerHTML = `${cityTemp}F° | C°`;
   weatherDescription.innerHTML = response.data.weather[0].description;
   weatherIcon.setAttribute(
     "src",
@@ -49,15 +49,13 @@ function displayWeather(response) {
 }
 
 function displayCurrentLocationWeather(response) {
-  console.log(response.data);
-  console.log(response.data.weather[0].icon);
   let cityTemp = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   let weatherDescription = document.querySelector("#weather-desc");
   let weatherIcon = document.querySelector("#weather-icon");
   let weatherIconId = response.data.weather[0].icon;
   h1.innerHTML = response.data.name;
-  currentTemp.innerHTML = `${cityTemp} &#8457; `;
+  currentTemp.innerHTML = `${cityTemp}F° | C°`;
   weatherDescription.innerHTML = response.data.weather[0].description;
   weatherIcon.setAttribute(
     "src",
@@ -82,12 +80,14 @@ function searchCurrentLocation(location) {
     let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
     let lat = location.coords.latitude;
     let lon = location.coords.longitude;
-    let units = "imperial";
+    let imperial = "imperial";
+    let metric = "metric";
     let url = "https://api.openweathermap.org/data/2.5/weather?";
-    let apiURLCurrent = `${url}lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
+    let apiURLCurrent = `${url}lat=${lat}&lon=${lon}&units=${imperial}&appid=${apiKey}`;
     axios.get(apiURLCurrent).then(displayCurrentLocationWeather);
   });
 }
 
+searchCurrentLocation();
 form.addEventListener("submit", searchLocation);
 currentLocationButton.addEventListener("click", searchCurrentLocation);
