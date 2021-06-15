@@ -95,3 +95,14 @@ ul {
   margin: 0 0 15px 0;
   color: #003399;
 }
+
+.header .active {
+  color: #fff;
+  cursor: default;
+  text-decoration: none;
+}
+
+.header .active:hover {
+  cursor: default;
+  text-decoration: none;
+}
