@@ -37,18 +37,33 @@ function displayWeather(response) {
   let cityTemp = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   let weatherDescription = document.querySelector("#weather-desc");
+  let weatherIcon = document.querySelector("#weather-icon");
+  let weatherIconId = response.data.weather[0].icon;
   currentTemp.innerHTML = `${cityTemp} &#8457; `;
   weatherDescription.innerHTML = response.data.weather[0].description;
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${weatherIconId}@2x.png`
+  );
+  weatherIcon.setAttribute("alt", response.data.weather[0].description);
 }
 
 function displayCurrentLocationWeather(response) {
-  console.log(response);
+  console.log(response.data);
+  console.log(response.data.weather[0].icon);
   let cityTemp = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   let weatherDescription = document.querySelector("#weather-desc");
+  let weatherIcon = document.querySelector("#weather-icon");
+  let weatherIconId = response.data.weather[0].icon;
   h1.innerHTML = response.data.name;
   currentTemp.innerHTML = `${cityTemp} &#8457; `;
   weatherDescription.innerHTML = response.data.weather[0].description;
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${weatherIconId}@2x.png`
+  );
+  weatherIcon.setAttribute("alt", response.data.weather[0].description);
 }
 
 function searchLocation() {
