@@ -4,6 +4,9 @@ let currentTime = document.querySelector("#current-time");
 let date = now.getDate();
 let hours = now.getHours() % 12;
 let minutes = now.getMinutes();
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
 let year = now.getFullYear();
 let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 let day = days[now.getDay()];
