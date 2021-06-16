@@ -39,10 +39,13 @@ function displayWeather(response) {
   let weatherDescription = document.querySelector("#weather-desc");
   let weatherIcon = document.querySelector("#weather-icon");
   let weatherIconId = response.data.weather[0].icon;
+  let windSpeed = document.querySelector("#wind-speed");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   currentTemp.innerHTML = `${cityTemp}`;
   weatherDescription.innerHTML = response.data.weather[0].description;
+  windSpeed.innerHTML = `Wind Speed: ${response.data.wind.speed}`;
+
   weatherIcon.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${weatherIconId}@2x.png`
@@ -53,6 +56,7 @@ function displayWeather(response) {
 
 function searchLocation(event) {
   event.preventDefault();
+  console.log(city);
   let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
   let city = locationInput.value;
   let units = "imperial";
@@ -63,11 +67,14 @@ function searchLocation(event) {
 }
 
 function displayCurrentLocationWeather(response) {
+  console.log(response.data);
   let cityTemp = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   let weatherDescription = document.querySelector("#weather-desc");
   let weatherIcon = document.querySelector("#weather-icon");
   let weatherIconId = response.data.weather[0].icon;
+  let windSpeed = document.querySelector("#wind-speed");
+  let precipitation = document.querySelector("#precipitation");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   h1.innerHTML = response.data.name;
@@ -78,6 +85,7 @@ function displayCurrentLocationWeather(response) {
     `http://openweathermap.org/img/wn/${weatherIconId}@2x.png`
   );
   weatherIcon.setAttribute("alt", response.data.weather[0].description);
+  windSpeed.innerHTML = `Wind Speed: ${response.data.wind.speed}`;
   fahrenheitTemperature = cityTemp;
 }
 
@@ -92,8 +100,6 @@ function searchCurrentLocation(location) {
     axios.get(apiURLCurrent).then(displayCurrentLocationWeather);
   });
 }
-
-// searchCurrentLocation();
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
@@ -124,3 +130,5 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 form.addEventListener("submit", searchLocation);
 currentLocationButton.addEventListener("click", searchCurrentLocation);
+
+searchCurrentLocation();

@@ -30,18 +30,19 @@ ul {
   font-size: 40px;
   font-weight: bold;
 }
+#weather-desc {
+  font-size: 30px;
+  color: #003399;
+}
 
 #weather-icon,
-#weather-desc,
 #wind-speed,
-#percipitation {
+#precipitation {
   font-size: 18px;
-  color: #003399;
 }
 
 .header-row {
   background-image: linear-gradient(180deg, #6699ff, #fff);
-  color: #fff;
   padding: 50px 25px 10px 25px;
 }
 
