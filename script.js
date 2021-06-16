@@ -28,6 +28,8 @@ let month = months[now.getMonth()];
 
 currentTime.innerHTML = `${month} ${date}, ${year} ${hours}:${minutes}`;
 
+// WEATHER INFO
+
 let url = "https://api.openweathermap.org/data/2.5/weather?";
 let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
 let imperial = "imperial";
@@ -35,14 +37,17 @@ let locationInput = document.querySelector("#location-input");
 let form = document.querySelector("form");
 let h1 = document.querySelector("h1");
 let currentLocationButton = document.querySelector("#current-location-button");
+let currentTemp = document.querySelector("#current-temp");
+let weatherDescription = document.querySelector("#weather-desc");
+let weatherIcon = document.querySelector("#weather-icon");
+let windSpeed = document.querySelector("#wind-speed");
+let fahrenheitTemperature;
+let listedTemperature = document.querySelector("#current-temp");
 
+let precipitation = document.querySelector("#precipitation");
 function displayWeather(response) {
   let cityTemp = Math.round(response.data.main.temp);
-  let currentTemp = document.querySelector("#current-temp");
-  let weatherDescription = document.querySelector("#weather-desc");
-  let weatherIcon = document.querySelector("#weather-icon");
   let weatherIconId = response.data.weather[0].icon;
-  let windSpeed = document.querySelector("#wind-speed");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   currentTemp.innerHTML = `${cityTemp}`;
@@ -67,12 +72,7 @@ function searchLocation(event) {
 
 function displayCurrentLocationWeather(response) {
   let cityTemp = Math.round(response.data.main.temp);
-  let currentTemp = document.querySelector("#current-temp");
-  let weatherDescription = document.querySelector("#weather-desc");
-  let weatherIcon = document.querySelector("#weather-icon");
   let weatherIconId = response.data.weather[0].icon;
-  let windSpeed = document.querySelector("#wind-speed");
-  let precipitation = document.querySelector("#precipitation");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   h1.innerHTML =
@@ -101,7 +101,6 @@ function searchCurrentLocation(location) {
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
-  let listedTemperature = document.querySelector("#current-temp");
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
   let tempMinus = fahrenheitTemperature - 32;
@@ -112,7 +111,6 @@ function displayCelsiusTemperature(event) {
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
-  let listedTemperature = document.querySelector("#current-temp");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
   listedTemperature.innerHTML = fahrenheitTemperature;
@@ -128,18 +126,18 @@ function displayLocationOnPageLoad() {
 function displayForecast(response) {
   console.log(response.data);
 }
-function searchCityForecast() {
-  let city = "arlington";
-  let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?";
-  let apiForecastURL = `${forecastURL}q=${city}&units=${imperial}&appid=${apiKey}`;
+
+function searchForecast() {
+  let latitude = "38.8823";
+  let longitude = "-77.1711";
+  let forecastURL = "https://api.openweathermap.org/data/2.5/onecall?";
+  let apiForecastURL = `${forecastURL}lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=${imperial}&appid=${apiKey}`;
   console.log(apiForecastURL);
   axios.get(apiForecastURL).then(displayForecast);
 }
 
-searchCityForecast();
+searchForecast();
 displayLocationOnPageLoad();
-
-let fahrenheitTemperature;
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
