@@ -28,6 +28,9 @@ let month = months[now.getMonth()];
 
 currentTime.innerHTML = `${month} ${date}, ${year} ${hours}:${minutes}`;
 
+let url = "https://api.openweathermap.org/data/2.5/weather?";
+let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
+let imperial = "imperial";
 let locationInput = document.querySelector("#location-input");
 let form = document.querySelector("form");
 let h1 = document.querySelector("h1");
@@ -55,18 +58,14 @@ function displayWeather(response) {
 
 function searchLocation(event) {
   event.preventDefault();
-  let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
   let city = locationInput.value;
-  let units = "imperial";
-  let url = "https://api.openweathermap.org/data/2.5/weather?";
-  let apiURL = `${url}q=${city}&units=${units}&appid=${apiKey}`;
+  let apiURL = `${url}q=${city}&units=${imperial}&appid=${apiKey}`;
   h1.innerHTML =
     locationInput.value[0].toUpperCase() + locationInput.value.substring(1);
   axios.get(apiURL).then(displayWeather);
 }
 
 function displayCurrentLocationWeather(response) {
-  console.log(response.data);
   let cityTemp = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   let weatherDescription = document.querySelector("#weather-desc");
@@ -91,7 +90,6 @@ function displayCurrentLocationWeather(response) {
 
 function searchCurrentLocation(location) {
   navigator.geolocation.getCurrentPosition(function (location) {
-    let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
     let lat = location.coords.latitude;
     let lon = location.coords.longitude;
     let imperial = "imperial";
@@ -121,15 +119,24 @@ function displayFahrenheitTemperature(event) {
 }
 
 function displayLocationOnPageLoad() {
-  let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
   let city = "falls Church";
-  let units = "imperial";
-  let url = "https://api.openweathermap.org/data/2.5/weather?";
-  let apiURL = `${url}q=${city}&units=${units}&appid=${apiKey}`;
+  let apiURL = `${url}q=${city}&units=${imperial}&appid=${apiKey}`;
   h1.innerHTML = city[0].toUpperCase() + city.substring(1);
   axios.get(apiURL).then(displayWeather);
 }
 
+function displayForecast(response) {
+  console.log(response.data);
+}
+function searchCityForecast() {
+  let city = "arlington";
+  let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?";
+  let apiForecastURL = `${forecastURL}q=${city}&units=${imperial}&appid=${apiKey}`;
+  console.log(apiForecastURL);
+  axios.get(apiForecastURL).then(displayForecast);
+}
+
+searchCityForecast();
 displayLocationOnPageLoad();
 
 let fahrenheitTemperature;
