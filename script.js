@@ -45,7 +45,6 @@ function displayWeather(response) {
   currentTemp.innerHTML = `${cityTemp}`;
   weatherDescription.innerHTML = response.data.weather[0].description;
   windSpeed.innerHTML = `Wind Speed: ${response.data.wind.speed}`;
-
   weatherIcon.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${weatherIconId}@2x.png`
@@ -56,13 +55,13 @@ function displayWeather(response) {
 
 function searchLocation(event) {
   event.preventDefault();
-  console.log(city);
   let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
   let city = locationInput.value;
   let units = "imperial";
   let url = "https://api.openweathermap.org/data/2.5/weather?";
   let apiURL = `${url}q=${city}&units=${units}&appid=${apiKey}`;
-  h1.innerHTML = locationInput.value;
+  h1.innerHTML =
+    locationInput.value[0].toUpperCase() + locationInput.value.substring(1);
   axios.get(apiURL).then(displayWeather);
 }
 
@@ -77,7 +76,8 @@ function displayCurrentLocationWeather(response) {
   let precipitation = document.querySelector("#precipitation");
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
-  h1.innerHTML = response.data.name;
+  h1.innerHTML =
+    response.data.name[0].toUpperCase() + response.data.name.substring(1);
   currentTemp.innerHTML = cityTemp;
   weatherDescription.innerHTML = response.data.weather[0].description;
   weatherIcon.setAttribute(
@@ -120,6 +120,18 @@ function displayFahrenheitTemperature(event) {
   listedTemperature.innerHTML = fahrenheitTemperature;
 }
 
+function displayLocationOnPageLoad() {
+  let apiKey = "2ee8b17e3f4ed047319249a4840b266e";
+  let city = "falls Church";
+  let units = "imperial";
+  let url = "https://api.openweathermap.org/data/2.5/weather?";
+  let apiURL = `${url}q=${city}&units=${units}&appid=${apiKey}`;
+  h1.innerHTML = city[0].toUpperCase() + city.substring(1);
+  axios.get(apiURL).then(displayWeather);
+}
+
+displayLocationOnPageLoad();
+
 let fahrenheitTemperature;
 
 let celsiusLink = document.querySelector("#celsius-link");
@@ -130,5 +142,3 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 form.addEventListener("submit", searchLocation);
 currentLocationButton.addEventListener("click", searchCurrentLocation);
-
-searchCurrentLocation();
