@@ -46,14 +46,32 @@ let listedTemperature = document.querySelector("#current-temp");
 let precipitation = document.querySelector("#precipitation");
 
 function displayForecast(response) {
-  let firstCardWeather = document.querySelector("#first-card-weather");
   let dailyWeather = Math.round(response.data.daily[1].temp.day);
-  let firstCardIcon = document.querySelector("#first-card-icon");
-  firstCardWeather.innerHTML = dailyWeather;
-  firstCardIcon.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png`
-  );
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHTML = `<div class="row main">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-2">
+        <div class="card">
+          <div class="card-body">
+            <p>
+              <img id="first-card-icon" src="http://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png" alt="weather-icon" />
+            </p>
+            <p class="card-text">
+              <span id="first-card-weather">${dailyWeather}</span> °F
+            </p>
+            <h5 class="card-day">${day} </h5>
+          </div>
+        </div>
+      </div>
+  `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 }
 
 function getForecast(coordinates) {
