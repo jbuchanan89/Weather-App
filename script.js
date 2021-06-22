@@ -141,7 +141,7 @@ function searchCurrentLocation(location) {
 }
 
 function displayLocationOnPageLoad() {
-  let city = "falls Church";
+  let city = "New York";
   let apiURL = `${url}q=${city}&units=${imperial}&appid=${apiKey}`;
   h1.innerHTML = city.toUpperCase();
   axios.get(apiURL).then(displayWeather);
