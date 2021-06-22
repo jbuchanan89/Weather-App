@@ -30,6 +30,7 @@ ul {
 #weather-desc {
   font-size: 30px;
   color: #003399;
+  opacity: 0.6;
 }
 
 #current-temp {

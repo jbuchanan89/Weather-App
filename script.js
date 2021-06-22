@@ -45,31 +45,44 @@ let fahrenheitTemperature;
 let listedTemperature = document.querySelector("#current-temp");
 let precipitation = document.querySelector("#precipitation");
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 function displayForecast(response) {
-  let dailyWeather = Math.round(response.data.daily[1].temp.day);
+  let forecast = response.data.daily;
+
   let forecastElement = document.querySelector("#weather-forecast");
 
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
   let forecastHTML = `<div class="row main">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      let dailyWeather = Math.round(forecastDay.temp.day);
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2">
         <div class="card">
           <div class="card-body">
             <p>
-              <img id="first-card-icon" src="http://openweathermap.org/img/wn/${response.data.daily[0].weather[0].icon}@2x.png" alt="weather-icon" />
+              <img id="first-card-icon" src="http://openweathermap.org/img/wn/${
+                forecastDay.weather[0].icon
+              }@2x.png" alt="weather-icon" />
             </p>
             <p class="card-text">
               <span id="first-card-weather">${dailyWeather}</span> °F
             </p>
-            <h5 class="card-day">${day} </h5>
+            <h5 class="card-day">${formatDay(forecastDay.dt)} </h5>
           </div>
         </div>
       </div>
   `;
+    }
   });
+
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
