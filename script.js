@@ -54,9 +54,7 @@ function formatDay(timestamp) {
 
 function displayForecast(response) {
   let forecast = response.data.daily;
-
   let forecastElement = document.querySelector("#weather-forecast");
-
   let forecastHTML = `<div class="row main">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
@@ -96,9 +94,7 @@ function getForecast(coordinates) {
 function displayWeather(response) {
   let cityTemp = Math.round(response.data.main.temp);
   let weatherIconId = response.data.weather[0].icon;
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  currentTemp.innerHTML = `${cityTemp}`;
+  currentTemp.innerHTML = `${cityTemp} °F`;
   weatherDescription.innerHTML = response.data.weather[0].description;
   windSpeed.innerHTML = `Wind Speed: ${response.data.wind.speed}`;
   weatherIcon.setAttribute(
@@ -114,19 +110,15 @@ function searchLocation(event) {
   event.preventDefault();
   let city = locationInput.value;
   let apiURL = `${url}q=${city}&units=${imperial}&appid=${apiKey}`;
-  h1.innerHTML =
-    locationInput.value[0].toUpperCase() + locationInput.value.substring(1);
+  h1.innerHTML = locationInput.value.toUpperCase();
   axios.get(apiURL).then(displayWeather);
 }
 
 function displayCurrentLocationWeather(response) {
   let cityTemp = Math.round(response.data.main.temp);
   let weatherIconId = response.data.weather[0].icon;
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  h1.innerHTML =
-    response.data.name[0].toUpperCase() + response.data.name.substring(1);
-  currentTemp.innerHTML = cityTemp;
+  h1.innerHTML = response.data.name.toUpperCase();
+  currentTemp.innerHTML = `${cityTemp} °F`;
   weatherDescription.innerHTML = response.data.weather[0].description;
   weatherIcon.setAttribute(
     "src",
@@ -148,37 +140,14 @@ function searchCurrentLocation(location) {
   });
 }
 
-function displayCelsiusTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let tempMinus = fahrenheitTemperature - 32;
-  let celsiusTemperature = (tempMinus * 5) / 9;
-  celsiusTemperature = Math.round(celsiusTemperature);
-  listedTemperature.innerHTML = celsiusTemperature;
-}
-
-function displayFahrenheitTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  listedTemperature.innerHTML = fahrenheitTemperature;
-}
-
 function displayLocationOnPageLoad() {
   let city = "falls Church";
   let apiURL = `${url}q=${city}&units=${imperial}&appid=${apiKey}`;
-  h1.innerHTML = city[0].toUpperCase() + city.substring(1);
+  h1.innerHTML = city.toUpperCase();
   axios.get(apiURL).then(displayWeather);
 }
 
 displayLocationOnPageLoad();
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 form.addEventListener("submit", searchLocation);
 currentLocationButton.addEventListener("click", searchCurrentLocation);
