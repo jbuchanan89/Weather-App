@@ -106,13 +106,7 @@ ul {
   color: #003399;
 }
 
-.header .active {
-  color: #fff;
-  cursor: default;
-  text-decoration: none;
-}
-
-.header .active:hover {
-  cursor: default;
-  text-decoration: none;
+#footer p {
+  padding: 20px;
+  text-align: center;
 }
