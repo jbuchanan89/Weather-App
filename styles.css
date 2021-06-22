@@ -93,6 +93,10 @@ ul {
   color: #6699ff;
 }
 
+.card-day {
+  opacity: 0.7;
+}
+
 .card-text {
   text-align: center;
   font-size: 25px;
